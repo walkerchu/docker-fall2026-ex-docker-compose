@@ -1,0 +1,15 @@
+# DevOps with Docker, Fall 2026
+# offer by The University of Helsinki
+# Chapter 3/migrating-to-docker-compose
+# url: https://courses.mooc.fi/org/uh-cs/courses/devops-with-docker-fall-2026/chapter-3/migrating-to-docker-compose
+# Exercise 2.2. Simple service with browser
+# created at Oct 20, 2026 01:45 HKT
+
+services:
+  simple-web-service:
+    image: devopsdockeruh/simple-web-service
+    ports:
+      - 8080:8080
+    build: .
+    container_name: web-server
+    command: server

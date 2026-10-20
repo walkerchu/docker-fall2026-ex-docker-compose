@@ -1,0 +1,14 @@
+# DevOps with Docker, Fall 2026
+# offer by The University of Helsinki
+# Chapter 3/migrating-to-docker-compose
+# url: https://courses.mooc.fi/org/uh-cs/courses/devops-with-docker-fall-2026/chapter-3/migrating-to-docker-compose
+# Exercise 2.1. Simple service writing to log
+# created at Oct 19, 2026 09:43 HKT
+
+services:
+  simple-web-service:
+    image: devopsdockeruh/simple-web-service
+    build: .
+    volumes:
+      - ./log.txt:/usr/src/app/text.log
+    container_name: logger
