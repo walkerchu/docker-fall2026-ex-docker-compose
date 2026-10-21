@@ -1,0 +1,28 @@
+# DevOps with Docker, Fall 2026
+# offer by The University of Helsinki
+# Chapter 3/migrating-to-docker-compose
+# url: https://courses.mooc.fi/org/uh-cs/courses/devops-with-docker-fall-2026/chapter-3/migrating-to-docker-compose
+# Exercise 2.3. Project with compose
+# created at Oct 21, 2026 22:46 HKT
+
+services:
+  frontend:
+    image: walkerchu/devops-spring:frontend
+    ports:
+      - 5001:5001
+    networks:
+      - shared-networks
+    container_name: frontend
+
+  backend:
+    image: walkerchu/devops-spring:backend
+    ports:
+      - 8080:8080
+    networks:
+      - shared-networks
+    container_name: backend
+
+networks:
+  shared-networks:
+    driver: bridge
+    name: shared-networks
