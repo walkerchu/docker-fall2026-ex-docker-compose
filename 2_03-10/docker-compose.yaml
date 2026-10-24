@@ -36,3 +36,5 @@ services:
     environment:
       POSTGRES_PASSWORD: example
     container_name: postgres
+    volumes:
+      - ./database:/var/lib/postgresql
