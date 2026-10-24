@@ -1,0 +1,38 @@
+# DevOps with Docker, Fall 2026
+# offer by The University of Helsinki
+# Chapter 2/utilizing-tools-from-the-registry
+# url: https://courses.mooc.fi/org/uh-cs/courses/devops-with-docker-fall-2026/chapter-2/utilizing-tools-from-the-registry
+# Exercise 1.14. Environment
+# created at Oct 18, 2026 01:41 HKT
+# modified at Oct 24, 2026 23:10 HKT
+
+# Change Log :
+# This Dockerfile is initially created in exercise 1.14 of Chapter 2.
+# Now the Dockerfile is revised to suit the need of exercise 2.10.
+
+FROM ubuntu
+
+# Install system dependencies (Cached forever unless this block changes)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl ca-certificates gnupg \
+    && rm -rf /var/lib/apt/lists/*
+
+# Add Node repository and install Node.js (Cached)
+RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - \
+    && apt-get install -y nodejs \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+# Copy application source code
+COPY exercises-docker-basics/1_12 .
+
+# Starting in production mode
+# Exercise 1.12 -> to run the project
+RUN npm install
+RUN REACT_APP_BACKEND_URL=http://localhost:8000/api npm run build
+RUN npm install -g serve
+
+
+CMD [ "serve", "-s", "-l", "5001", "build" ]
+

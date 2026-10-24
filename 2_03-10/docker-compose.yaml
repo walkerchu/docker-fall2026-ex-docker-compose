@@ -2,32 +2,29 @@
 # offer by The University of Helsinki
 # Chapter 3/migrating-to-docker-compose
 # url: https://courses.mooc.fi/org/uh-cs/courses/devops-with-docker-fall-2026/chapter-3/volumes-in-action
-# Exercise 2.9. Fixup
-# created at Oct 24, 2026 17:30 HKT
+# Exercise 2.10. Close the ports
+# created at Oct 24, 2026 18:43 HKT
 
 services:
   frontend:
-    image: walkerchu/devops-spring:frontend
-    ports:
-      - 5001:5001
-    container_name: frontend
+    image: walkerchu/devops-spring:frontend-2-10
+    environment:
+      - REACT_APP_BACKEND_URL=http://localhost:8000/api
 
   backend:
     image: walkerchu/devops-spring:backend
-    ports:
-      - 8080:8080
     container_name: backend
     environment:
-      - REDIS_HOST=cache-service
+      - REDIS_HOST=redis
       - REQUEST_ORIGIN=http://localhost:8000 # use port 5001 if without proxy
       - POSTGRES_HOST=db
       - POSTGRES_PASSWORD=example
     depends_on:
-      - cache-service
+      - redis
       - db
     restart: unless-stopped
 
-  cache-service:
+  redis:
     image: redis:alpine3.23
 
   db:
