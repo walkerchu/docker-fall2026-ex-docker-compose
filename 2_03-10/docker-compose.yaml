@@ -1,9 +1,9 @@
 # DevOps with Docker, Fall 2026
 # offer by The University of Helsinki
 # Chapter 3/migrating-to-docker-compose
-# url: https://courses.mooc.fi/org/uh-cs/courses/devops-with-docker-fall-2026/chapter-3/migrating-to-docker-compose
-# Exercise 2.4. Redis
-# created at Oct 22, 2026 23:36 HKT
+# url: https://courses.mooc.fi/org/uh-cs/courses/devops-with-docker-fall-2026/chapter-3/volumes-in-action
+# Exercise 2.6. Postgres
+# created at Oct 24, 2026 02:13 HKT
 
 services:
   frontend:
@@ -19,9 +19,20 @@ services:
     container_name: backend
     environment:
       - REDIS_HOST=cache-service
+      - REQUEST_ORIGIN=http://localhost:5001
+      - POSTGRES_HOST=db
+      - POSTGRES_PASSWORD=example
     depends_on:
       - cache-service
+      - db
     restart: unless-stopped
 
   cache-service:
     image: redis:alpine3.23
+
+  db:
+    image: postgres:18
+    restart: unless-stopped
+    environment:
+      POSTGRES_PASSWORD: example
+    container_name: postgres
