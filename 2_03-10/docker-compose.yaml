@@ -2,8 +2,8 @@
 # offer by The University of Helsinki
 # Chapter 3/migrating-to-docker-compose
 # url: https://courses.mooc.fi/org/uh-cs/courses/devops-with-docker-fall-2026/chapter-3/volumes-in-action
-# Exercise 2.8. Reverse proxy
-# created at Oct 24, 2026 15:33 HKT
+# Exercise 2.9. Fixup
+# created at Oct 24, 2026 17:30 HKT
 
 services:
   frontend:
@@ -19,7 +19,7 @@ services:
     container_name: backend
     environment:
       - REDIS_HOST=cache-service
-      - REQUEST_ORIGIN=http://localhost:5001
+      - REQUEST_ORIGIN=http://localhost:8000 # use port 5001 if without proxy
       - POSTGRES_HOST=db
       - POSTGRES_PASSWORD=example
     depends_on:
